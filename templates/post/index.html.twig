@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista Postów{% endblock %}
+
+{% block body %}
+    <h1>Lista Postów</h1>
+    <ol>
+        {% for post in posts %}
+            <li>
+                <div>
+                    <h2>Title: {{ post.title }}</h2>
+                    <p>Description {{ post.body }}</p>
+                    <p>Author: {{ post.author.name }}</p>
+                </div>
+                <form action="{{ path('post_delete', {'id': post.id}) }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}
